@@ -50,7 +50,7 @@ class ChineseDataReader(object):
 
     @staticmethod
     def get_labels():
-        return {"0": 0, "1": 1}
+        return {"0": 0.0, "1": 1.0}
 
     def get_num_labels(self):
         return len(self.get_labels())

@@ -6,6 +6,9 @@ from tqdm import tqdm
 from ..util import batch_to_device
 import os
 import csv
+import sys
+sys.path.append("../..")
+from args import args
 
 class LabelAccuracyEvaluator(SentenceEvaluator):
     """
@@ -24,7 +27,7 @@ class LabelAccuracyEvaluator(SentenceEvaluator):
             the data for the evaluation
         """
         self.dataloader = dataloader
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device('cuda:{}'.format(args.gpu) if torch.cuda.is_available() else "cpu")
         self.name = name
         if name:
             name = "_"+name

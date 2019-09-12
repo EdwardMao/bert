@@ -8,7 +8,9 @@ import os
 import csv
 from sklearn.metrics.pairwise import paired_cosine_distances, paired_euclidean_distances, paired_manhattan_distances
 import numpy as np
-
+import sys
+sys.path.append("../..")
+from args import args
 
 class BinaryEmbeddingSimilarityEvaluator(SentenceEvaluator):
     """
@@ -37,7 +39,7 @@ class BinaryEmbeddingSimilarityEvaluator(SentenceEvaluator):
         """
         self.dataloader = dataloader
         self.main_similarity = main_similarity
-        self.device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+        self.device = torch.device('cuda:{}'.format(args.gpu) if torch.cuda.is_available() else "cpu")
         self.name = name
         if name:
             name = "_"+name
@@ -77,11 +79,22 @@ class BinaryEmbeddingSimilarityEvaluator(SentenceEvaluator):
         for label in labels:
             assert (label == 0 or label == 1)
 
-        cosine_middle = np.median(cosine_scores)
+        cosine_middle = 0.9#np.median(cosine_scores)
+        print(cosine_middle)
         cosine_acc = 0
+        tmin = 100
+        fmax = -100
         for label, score in zip(labels, cosine_scores):
             if (label == 1 and score > cosine_middle) or (label == 0 and score <= cosine_middle):
                 cosine_acc += 1
+
+            if label == 1 and score < tmin:
+                tmin = score
+
+            if label == 0 and score > fmax:
+                fmax = score
+
+        print(tmin,fmax)
         cosine_acc /= len(labels)
 
         manhattan_middle = np.median(manhattan_distances)

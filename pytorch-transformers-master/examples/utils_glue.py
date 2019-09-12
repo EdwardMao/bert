@@ -22,7 +22,7 @@ import logging
 import os
 import sys
 from io import open
-
+import io
 from scipy.stats import pearsonr, spearmanr
 from sklearn.metrics import matthews_corrcoef, f1_score
 
@@ -120,6 +120,37 @@ class MnliProcessor(DataProcessor):
                 InputExample(guid=guid, text_a=text_a, text_b=text_b, label=label))
         return examples
 
+class CnewsProcessor(DataProcessor):
+    """Processor for the CoLA data set (GLUE version)."""
+
+    def get_train_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            os.path.join(data_dir, "cnews.train.txt"), "train")
+
+    def get_dev_examples(self, data_dir):
+        """See base class."""
+        return self._create_examples(
+            os.path.join(data_dir, "cnews.val.txt"), "dev")
+
+    def get_labels(self):
+        """See base class."""
+        return ["体育", "家居", "教育", "时尚", "时政", "游戏", "科技", "财经", "房产", "娱乐"]
+
+    def _create_examples(self, path, set_type):
+        """Creates examples for the training and dev sets."""
+        examples = []
+        with open(path, 'r', encoding='utf8') as f:
+
+            for (i, line) in enumerate(f):
+                guid = "%s-%s" % (set_type, i)
+                line = line.strip()
+                line = line.split('\t')
+                text_a = line[1]
+                label = line[0]
+                examples.append(
+                    InputExample(guid=guid, text_a=text_a, text_b=None, label=label))
+        return examples
 
 def convert_examples_to_features(examples, label_list, max_seq_length,
                                  tokenizer, output_mode,
@@ -308,17 +339,22 @@ def compute_metrics(task_name, preds, labels):
         return {"acc": simple_accuracy(preds, labels)}
     elif task_name == "wnli":
         return {"acc": simple_accuracy(preds, labels)}
+    elif task_name == "cnews":
+        return {"acc": simple_accuracy(preds, labels)}
     else:
         raise KeyError(task_name)
 
 processors = {
     "mnli": MnliProcessor,
+    "cnews": CnewsProcessor,
 }
 
 output_modes = {
     "mnli": "classification",
+    "cnews": "classification",
 }
 
 GLUE_TASKS_NUM_LABELS = {
     "mnli": 2,
+    "cnews": 10,
 }

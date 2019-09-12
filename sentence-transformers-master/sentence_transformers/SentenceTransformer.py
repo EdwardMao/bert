@@ -14,7 +14,7 @@ from torch import nn, Tensor
 from torch.optim import Optimizer
 from torch.utils.data import DataLoader
 from tqdm import tqdm, trange
-
+from args import args
 from . import __DOWNLOAD_SERVER__
 from .evaluation import SentenceEvaluator
 from .util import import_from_string, batch_to_device, http_get
@@ -79,7 +79,7 @@ class SentenceTransformer(nn.Sequential):
         super().__init__(modules)
         if device is None:
 
-            device = 'cuda:{}'.format(7) if torch.cuda.is_available() else "cpu"
+            device = 'cuda:{}'.format(args.gpu) if torch.cuda.is_available() else "cpu"
             logging.info("Use pytorch device: {}".format(device))
         self.device = torch.device(device)
         self.to(device)
@@ -190,7 +190,7 @@ class SentenceTransformer(nn.Sequential):
             a batch of tensors for the model
         """
         num_texts = len(batch[0][0])
-
+        # num_texts = args.max_seq_length
         labels = []
         paired_texts = [[] for _ in range(num_texts)]
         max_seq_len = [0] * num_texts

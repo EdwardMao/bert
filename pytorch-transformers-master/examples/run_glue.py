@@ -13,6 +13,7 @@
 # WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
 # See the License for the specific language governing permissions and
 # limitations under the License.
+# python ./examples/run_glue.py --model_type bert --model_name_or_path bert-base-chinese --task_name MNLI --do_train --do_eval --do_lower_case --data_dir ../data/MNLI/ --max_seq_length 128 --per_gpu_eval_batch_size=64 --per_gpu_train_batch_size=64 --learning_rate 2.0e-5 --num_train_epochs 3.0 --output_dir ./save/bertchangeweightdecay/ --save_steps 500 --evaluate_during_training --overwrite_output_dir --logging_steps 100  --warmup_steps 1000  --gpu 1  --weight_decay 0.01
 """ Finetuning the library models for sequence classification on GLUE (Bert, XLM, XLNet, RoBERTa)."""
 
 from __future__ import absolute_import, division, print_function
@@ -82,12 +83,12 @@ def train(args, train_dataset, model, tokenizer):
         t_total = len(train_dataloader) // args.gradient_accumulation_steps * args.num_train_epochs
 
     # Prepare optimizer and schedule (linear warmup and decay)
-    no_decay = ['bias', 'LayerNorm.weight']
+    no_decay = ['bias', 'LayerNorm.weight', 'LayerNorm.bias']
     optimizer_grouped_parameters = [
         {'params': [p for n, p in model.named_parameters() if not any(nd in n for nd in no_decay)], 'weight_decay': args.weight_decay},
         {'params': [p for n, p in model.named_parameters() if any(nd in n for nd in no_decay)], 'weight_decay': 0.0}
         ]
-    optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon)
+    optimizer = AdamW(optimizer_grouped_parameters, lr=args.learning_rate, eps=args.adam_epsilon, correct_bias=False)
     scheduler = WarmupLinearSchedule(optimizer, warmup_steps=args.warmup_steps, t_total=t_total)
     if args.fp16:
         try:
@@ -383,6 +384,8 @@ def main():
                         help="For distributed training: local_rank")
     parser.add_argument('--server_ip', type=str, default='', help="For distant debugging.")
     parser.add_argument('--server_port', type=str, default='', help="For distant debugging.")
+    parser.add_argument("--gpu", type=int, default=6,
+                        help="GPU ")
     args = parser.parse_args()
 
     if os.path.exists(args.output_dir) and os.listdir(args.output_dir) and args.do_train and not args.overwrite_output_dir:
@@ -400,7 +403,7 @@ def main():
     if args.local_rank == -1 or args.no_cuda:
         # device = torch.device("cuda" if torch.cuda.is_available() and not args.no_cuda else "cpu")
         # args.n_gpu = torch.cuda.device_count()
-        device = torch.device('cuda:{}'.format(7))
+        device = torch.device('cuda:{}'.format(args.gpu))
         args.n_gpu = 1
     else:  # Initializes the distributed backend which will take care of sychronizing nodes/GPUs
         torch.cuda.set_device(args.local_rank)

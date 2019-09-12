@@ -6,20 +6,22 @@ from typing import Union, Tuple, List, Dict
 import os
 import numpy as np
 import logging
-
+import sys
+sys.path.append("../..")
+from args import args
 class BERT(nn.Module):
     """BERT model to generate token embeddings.
 
     Each token is mapped to an output vector from BERT.
     """
-    def __init__(self, model_name_or_path: str, max_seq_length: int = 128, do_lower_case: bool = True):
+    def __init__(self, model_name_or_path: str, max_seq_length: int = args.max_seq_length, do_lower_case: bool = True):
         super(BERT, self).__init__()
         self.config_keys = ['max_seq_length', 'do_lower_case']
         self.do_lower_case = do_lower_case
 
-        if max_seq_length > 510:
+        if max_seq_length > 64:
             logging.warning("BERT only allows a max_seq_length of 510 (512 with special tokens). Value will be set to 510")
-            max_seq_length = 510
+            max_seq_length = 64
         self.max_seq_length = max_seq_length
 
         self.bert = BertModel.from_pretrained(model_name_or_path)
