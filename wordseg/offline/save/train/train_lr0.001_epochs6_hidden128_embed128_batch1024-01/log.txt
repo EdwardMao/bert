@@ -1,0 +1,22 @@
+[08.15.19 14:34:37] Args: {
+    "EMBEDDING_DIM": 128,
+    "HIDDEN_DIM": 128,
+    "batch_size": 1024,
+    "dev": true,
+    "dropout": 0.1,
+    "eval_steps": 10000,
+    "gpu_ids": [],
+    "load_path": null,
+    "lr": 0.001,
+    "maximize_metric": true,
+    "metric_name": "F1",
+    "name": "train",
+    "num_epochs": 6,
+    "save_dir": "./save/train\\train_lr0.001_epochs6_hidden128_embed128_batch1024-01",
+    "seed": 224
+}
+[08.15.19 14:34:37] Using random seed 224...
+[08.15.19 14:34:37] Loading data...
+[08.15.19 14:34:37] Building model...
+[08.15.19 14:34:37] Saver will maximize F1...
+[08.15.19 14:34:37] Training...

@@ -1,0 +1,6 @@
+*.xml
+*.pyc
+*.iml
+*.tsv
+*.json
+.DS_Store

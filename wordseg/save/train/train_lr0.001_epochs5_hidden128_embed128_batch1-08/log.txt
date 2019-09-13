@@ -1,0 +1,55 @@
+[08.19.19 17:07:31] Args: {
+    "EMBEDDING_DIM": 128,
+    "HIDDEN_DIM": 128,
+    "batch_size": 1,
+    "dev": true,
+    "dev_file": "./data/dev.tsv",
+    "dropout": 0.1,
+    "eval_steps": 2,
+    "load_path": null,
+    "lr": 0.001,
+    "maximize_metric": true,
+    "metric_name": "F1",
+    "model_path": "./data/best.pth.tar",
+    "name": "train",
+    "num_epochs": 5,
+    "save_dir": "./save/train\\train_lr0.001_epochs5_hidden128_embed128_batch1-08",
+    "seed": 224,
+    "test_file": "./data/test.tsv",
+    "test_has_label": true,
+    "test_output_file": "./data/test_output.tsv",
+    "train_file": "./data/train.tsv",
+    "vocab_file": "./data/word_to_ix.p"
+}
+[08.19.19 17:07:31] Using random seed 224...
+[08.19.19 17:07:31] Loading data from file
+[08.19.19 17:07:31] Transferring data into dataset
+[08.19.19 17:07:31] Building model...
+[08.19.19 17:07:31] Saver will maximize F1...
+[08.19.19 17:07:31] Training...
+[08.19.19 17:07:31] Starting epoch 0...
+[08.19.19 17:07:32] Evaluate at step 2...
+[08.19.19 17:07:32] Saved checkpoint: ./save/train\train_lr0.001_epochs5_hidden128_embed128_batch1-08\step_2.pth.tar
+[08.19.19 17:07:32] New best checkpoint at step 2...
+[08.19.19 17:07:32] Dev F1: 0.4
+[08.19.19 17:07:32] Loss: 8.33025074005127
+[08.19.19 17:07:32] Starting epoch 1...
+[08.19.19 17:07:33] Evaluate at step 4...
+[08.19.19 17:07:33] Saved checkpoint: ./save/train\train_lr0.001_epochs5_hidden128_embed128_batch1-08\step_4.pth.tar
+[08.19.19 17:07:33] Dev F1: 0.4
+[08.19.19 17:07:33] Loss: 7.393819808959961
+[08.19.19 17:07:36] Evaluate at step 6...
+[08.19.19 17:07:36] Saved checkpoint: ./save/train\train_lr0.001_epochs5_hidden128_embed128_batch1-08\step_6.pth.tar
+[08.19.19 17:07:36] Dev F1: 0.4
+[08.19.19 17:07:36] Loss: 2.0490777492523193
+[08.19.19 17:07:36] Starting epoch 2...
+[08.19.19 17:07:40] Evaluate at step 8...
+[08.19.19 17:07:40] Saved checkpoint: ./save/train\train_lr0.001_epochs5_hidden128_embed128_batch1-08\step_8.pth.tar
+[08.19.19 17:07:40] New best checkpoint at step 8...
+[08.19.19 17:07:40] Dev F1: 1.0
+[08.19.19 17:07:40] Loss: 3.63140606880188
+[08.19.19 17:07:41] Starting epoch 3...
+[08.19.19 17:07:41] Evaluate at step 10...
+[08.19.19 17:07:42] Saved checkpoint: ./save/train\train_lr0.001_epochs5_hidden128_embed128_batch1-08\step_10.pth.tar
+[08.19.19 17:07:42] Dev F1: 1.0
+[08.19.19 17:07:42] Loss: 3.316614866256714

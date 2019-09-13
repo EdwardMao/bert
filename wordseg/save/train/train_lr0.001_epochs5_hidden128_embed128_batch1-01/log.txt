@@ -1,0 +1,25 @@
+[08.19.19 15:31:17] Args: {
+    "EMBEDDING_DIM": 128,
+    "HIDDEN_DIM": 128,
+    "batch_size": 1,
+    "dev": true,
+    "dev_file": "./data/dev.tsv",
+    "dropout": 0.1,
+    "eval_steps": 2,
+    "load_path": null,
+    "lr": 0.001,
+    "maximize_metric": true,
+    "metric_name": "F1",
+    "model_path": "./data/best.pth.tar",
+    "name": "train",
+    "num_epochs": 5,
+    "save_dir": "./save/train\\train_lr0.001_epochs5_hidden128_embed128_batch1-01",
+    "seed": 224,
+    "test_file": "./data/test2.tsv",
+    "test_has_label": true,
+    "test_output_file": "./data/test_output.tsv",
+    "train_file": "./data/train.tsv",
+    "vocab_file": "./data/word_to_ix.p"
+}
+[08.19.19 15:31:17] Using random seed 224...
+[08.19.19 15:31:17] Loading data from file
