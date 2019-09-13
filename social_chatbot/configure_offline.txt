@@ -1,0 +1,183 @@
+{
+  "BFSKg":
+  {
+    "seed_entity_id": "里奥·梅西",
+    "internal_use": 1,
+    "save_root": "/home/markjzhao/BFStmp/",
+    "EntityType":{"Singer": 42, "Song": 39, "Band": 178, "SongAlbum": 45, "Orchestra": 372, "VideoStar": 63, "Movie": 204, "TVDrama": 205, "VarietyShow": 273, "VideoAlbum": 68, "TVChannel": 333,
+                  "Documentary": 462, "Game": 10, "GameCharacter": 340, "GameJargon": 463, "PlaceofInterest": 176, "Place": 186, "Hotel": 210, "Mountain": 317, "River": 318, "Lake": 319,
+                  "Novel": 31, "Journal": 427, "ReligiousText": 260, "Book": 110, "Festival": 173, "SolarTerm": 366, "Year": 374, "Date": 377, "Comic": 322, "ComicCharacter": 323, "Zodiac": 255,
+                  "Human": 57, "VirtualCharacter": 298, "SportStar": 58, "Sport": 216, "SportOrganization": 221, "SportCompetition": 222, "SportJargon": 229, "SportField": 382, "Country": 193,
+                  "Company": 203, "Organization": 211, "School": 167, "Recipe": 163, "Plant": 199, "Animal": 200, "HistoricHuman": 256, "Dynasty": 270}
+  },
+  "BFSMultiprocessing":
+  {
+    "seed_entity_id": "里奥·梅西",
+    "internal_use": 1,
+    "save_root": "/home/markjzhao/BFStmp/",
+    "EntityType":{"Singer": 42, "Song": 39, "Band": 178, "SongAlbum": 45, "Orchestra": 372, "VideoStar": 63, "Movie": 204, "TVDrama": 205, "VarietyShow": 273, "VideoAlbum": 68, "TVChannel": 333,
+                  "Documentary": 462, "Game": 10, "GameCharacter": 340, "GameJargon": 463, "PlaceofInterest": 176, "Place": 186, "Hotel": 210, "Mountain": 317, "River": 318, "Lake": 319,
+                  "Novel": 31, "Journal": 427, "ReligiousText": 260, "Book": 110, "Festival": 173, "SolarTerm": 366, "Year": 374, "Date": 377, "Comic": 322, "ComicCharacter": 323, "Zodiac": 255,
+                  "Human": 57, "VirtualCharacter": 298, "SportStar": 58, "Sport": 216, "SportOrganization": 221, "SportCompetition": 222, "SportJargon": 229, "SportField": 382, "Country": 193,
+                  "Company": 203, "Organization": 211, "School": 167, "Recipe": 163, "Plant": 199, "Animal": 200, "HistoricHuman": 256, "Dynasty": 270},
+    "process_number_max": 30,
+    "batch_size": 20,
+    "debug": 0
+  },
+  "MigrateDB":
+  {
+    "DBIPFrom":"10.12.192.47",
+    "DBIPTo":"10.93.128.143",
+    "DBPortFrom":27017,
+    "DBPortTo":27017,
+    "DBFrom":"tencent_kg",
+    "DBTo":"tencent_kg"
+  },
+  "UpdateDB":
+  {
+    "internal_use": 0,
+    "save_root": "/home/markjzhao/updateSportTmp/",
+    "process_number_max": 4,
+    "batch_size": 100,
+    "debug": 0
+  },
+  "SaveEntity2DB":
+  {
+    "db_name":"daily_data",
+    "collection_name":"entity",
+    "data_dir":
+    {
+        "douban_movie":"/home/ailabchenli/crawl_news_data/douban_movie",
+        "qq_music":"/home/ailabchenli/crawl_news_data/qq_music"
+    }
+  },
+  "WikiPipeline":
+  {
+    "output_dir":"/home/xiaoman/output/wiki",
+    "nworkers":"12",
+    "host":"10.93.128.143",
+    "port":"27017",
+    "db_name":"wiki",
+    "collection_name":"sents",
+    "user":"admin",
+    "pwd":"12345678"
+  },
+  "SearchSectionPipeline":
+  {
+    "data_dir":"/home/xiaoman/output/wiki/output",
+    "output_path":"/home/xiaoman/output/tmp/section.txt",
+    "keywords":["评价", "评论", "观点"],
+    "host":"10.93.128.143",
+    "port":"27017",
+    "db_name":"wiki",
+    "collection_name":"sents",
+    "user":"admin",
+    "pwd":"12345678"
+  },
+  "CreateLexiconAndMentionTable":
+  {
+    "output_dir":"/home/socialchatbot/social_chatbot_data/",
+    "host":"10.93.128.143",
+    "port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "db_name":"tencent_kg",
+    "input_collection_name":"top_100000",
+    "output_collection_name":"top_100000_mentions",
+    "lexicon_min_length":3
+  },
+  "IDFPipeline":
+  {
+    "host":"10.93.128.143",
+    "port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "db_name":"daily_data",
+    "input_collection_name":"article_new",
+    "output_file": "/home/socialchatbot/social_chatbot_data/idf.tsv",
+    "nworkers": "12"
+  },
+  "EntityLinkingPipeline":
+  {
+    "host":"10.93.128.143",
+    "port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "input_db_name":"daily_data",
+    "article_collection_name":"article_new",
+    "output_db_name":"test",
+    "sentence_collection_name":"sentence_collection",
+    "input_source_category": ["hupu_all",
+                              "ttplus_all",
+                              "dongqiudi_all",
+                              "cctvsports_all",
+                              "chinanews_all",
+                              "sikezuqiu_all",
+                              "netease_体育"],
+    "sport_category_file": "topic_category/sports.json",
+    "date_after":"20190501",
+    "daily_update":1,
+    "nworkers": "32",
+    "save_batch_size": 100000,
+    "insert_batch_size": 300000,
+    "tmp_dir": "/home/socialchatbot/social_chatbot_data/tmp/sentence/"
+  },
+  "EntityLinkingStatistic":
+  {
+    "host":"10.93.128.143",
+    "port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "input_db_name":"test",
+    "sentence_collection_name":"sentence_collection",
+    "nworkers": "32",
+    "output_file": "/home/socialchatbot/social_chatbot_data/extra_info/entity_statistic.tsv"
+  },
+  "InvertedIndexPipeline":
+  {
+    "host":"10.93.128.143",
+    "port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "processed_db_name":"test",
+    "sentence_collection_name":"sentence_collection",
+    "date_after":"20190611",
+    "daily_update":1,
+    "idf_file":"/home/socialchatbot/social_chatbot_data/idf.tsv",
+    "tmp_dir": "/home/socialchatbot/social_chatbot_data/tmp/index/",
+    "output_dir": "/home/socialchatbot/social_chatbot_data/index/",
+    "nworkers":"32",
+    "max_index_file_size":3
+  },
+  "VisualizationPipeline":
+  {
+    "host":"10.93.128.143",
+    "port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "input_db_name":"test",
+    "input_collection_name":"article_new",
+    "output_dir":"/home/xiaoman/output/visualization",
+    "kg_api_url":"http://10.93.128.136:8081/get_entry?kbid=",
+    "import_date":"20190515",
+    "nworkers": "16"
+  },
+  "DialogActClassifierPipeline":
+  {
+    "exe_type":"test",
+    "data_root":"/home/markzhao/work/dialog_act/data/"
+  },
+  "AttitudeClassifierPipeline":
+  {
+    "exe_type":"train",
+    "data_root":"/home/ailabchenli/social_chatbot_data/attitude_classifier/"
+  },
+  "QuestionClassifierPipeline":
+  {
+    "exe_type":"train",
+    "data_root":"/home/ailabchenli/social_chatbot_data/question_classifier/",
+    "surround_num":2,
+    "n_gram":3
+  },
+  "global_configure_file":"./configure_online.txt"
+}

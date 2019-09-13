@@ -1,0 +1,124 @@
+{
+  "data_root":"C:\\Users\\v_weiqmao\\Desktop\\social_chatbot_data/",
+  "nlu_configure":
+  {
+    "nlp_data_root":"nlp_model/",
+    "attitude_classifier_configure":
+    {
+        "data_root":"attitude_classifier/",
+        "confidence": 0.7
+    },
+    "dialog_act_classifier_configure":
+    {
+        "data_root":"dialog_act_classifier",
+        "confidence": 0.7
+    },
+    "emotion_classifier_configure":
+    {
+        "data_root":"emotion_classifier"
+    },
+    "question_classifier_configure":
+    {
+        "data_root":"question_classifier/",
+        "surround_num":2,
+        "n_gram":3
+    },
+    "turn_on":["POS","NER","DEP","SRL", "ATT", "QTY", "ACT", "EMO", "ENL"],
+    "entity_type_mapping_file": "entity_type_mapping.tsv",
+    "entity_type_exclusion_file": "entity_type_exclusion.tsv"
+  },
+  "dialog_graph_configure":
+  {
+    "dialog_graph_data_root":"dialog_graph/",
+    "intents":"intent.json",
+    "groundings":"grounding.json",
+    "questions":"question.json"
+  },
+  "qa_configure":
+  {
+    "turn_on":1,
+    "threshold_value":0.9
+  },
+  "bm25_configure":
+  {
+    "idf_file":"idf.tsv",
+    "b":0.5,
+    "k1":1,
+    "avg_len":35,
+    "unknown_token_df":100
+  },
+  "short_sentence_search_configure":
+  {
+    "max_sentece_number":50
+  },
+  "default_sentence_search_constraint":
+  {
+    "source":"",
+    "category":"",
+    "entity_list":[],
+    "topic_category":[],
+    "days_ago": 7,
+    "entity_number": 2,
+    "sentence_position": 5,
+    "sentence_length_max": 40,
+    "sentence_length_min": 15
+  },
+  "entity_warehouse_configure":
+  {
+    "host":"10.93.128.143",
+    "port":27017,
+    "user":"admin",
+    "pwd":"12345678",
+    "db_name":"tencent_kg",
+    "entity_collection_name":"top_100000",
+    "entity_mentions_name":"top_100000_mentions",
+    "memcache_ip_port":"10.93.128.143:9999"
+  },
+  "search_warehouse_configure":
+  {
+    "host":"10.93.128.143",
+    "port":27017,
+    "user":"admin",
+    "pwd":"12345678",
+    "db_name":"test",
+    "sentence_collection_name":"sentence_collection",
+    "index_dir":"index/",
+    "memcache_ip_port":"10.93.128.143:9999"
+  },
+  "intent_classifier_configure":
+  {
+        "threadhold":1.5,
+        "intent_knn":5
+  },
+  "entity_extension_configure":
+  {
+    "local_data_root":"entity_extension/",
+    "obj_placeholder":"_OBJECT_PLACE_HOLDER_",
+    "sub_placeholder":"_SUBJECT_PLACE_HOLDER_",
+    "obj_a_placeholder":"_A_OBJ_PLACE_HOLDER_",
+    "obj_b_placeholder":"_B_OBJ_PLACE_HOLDER_",
+    "ana_sub_placeholder":"_ANA_SUB_PLACE_HOLDER_",
+    "ana_obj_placeholder":"_ANA_OBJ_PLACE_HOLDER_",
+    "templates":"templates.json",
+    "relations":"relations.json",
+    "templates_2a":"templates_order_2A.json",
+    "relations_2a":"relations_order_2A.json",
+    "templates_analogy":"templates_analogy.json",
+    "pred_synonym":"PredicateSynonym.json",
+    "pred_mapping":"PredicateMapping.json",
+    "focus_type_list":"sports_type_list.json",
+    "alias_top_k":3,
+    "candidate_top_k":5
+  },
+  "topic_category_configure":
+  {
+    "sports_topic_category_file":"topic_category/sports.json"
+  },
+  "log_configure":
+  {
+    "system_log_dir":"logs/system_logs/",
+    "component_log_dir":"logs/component_logs/",
+    "user_log_dir":"logs/user_logs/",
+    "loggers": [["user_log","INFO"],  ["component_log","INFO"], ["system_log","INFO"]]
+  }
+}

@@ -1,0 +1,10 @@
+pymongo
+pyltp
+ujson
+jieba
+unidecode
+zhconv
+flask
+sklearn
+bs4
+requests

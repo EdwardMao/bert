@@ -1,0 +1,21 @@
+{
+  "portal":
+  {
+    "host":"10.93.128.136",
+    "port":"8081"
+  },
+  "KgApi":
+  {
+    "db_host":"10.93.128.143",
+    "db_port":"27017",
+    "user":"admin",
+    "pwd":"12345678",
+    "db_name":"tencent_kg",
+    "kg_collection_name":"All",
+    "linker_collection_name":"All_mentions"
+  },
+  "NluApi":"",
+  "DialogGraphApi":"",
+  "ShortSentenceSearchApi":"",
+  "global_configure_file":"./configure_online.txt"
+}

@@ -1,0 +1,10 @@
+span#linkable {
+  color: #5791ed;
+  font-weight: bold;
+  text-decoration: underline;
+}
+
+span#nil {
+  color: red;
+  font-weight: bold;
+}
